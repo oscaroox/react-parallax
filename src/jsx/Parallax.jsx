@@ -14,7 +14,6 @@ export default class Parallax extends React.Component {
 		this.node = null;
 		this.splitChildren = this.splitChildren();
 		this.windowHeight = this.getWindowHeight();
-		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
 		this.autobind();		
 	}
@@ -40,7 +39,7 @@ export default class Parallax extends React.Component {
 						{this.splitChildren.bgChildren}
 					</div>
 				) : ''}
-				<div className="react-parallax-content" style={this.childStyle} ref="content">
+				<div className="react-parallax-content" style={this.props.childStyle} ref="content">
 					{this.splitChildren.children}
 				</div>
 			</div>
@@ -216,15 +215,6 @@ export default class Parallax extends React.Component {
 		}
 	}
 
-	/**
-	 * returns styles for the component content.
-	 */
-	getChildStyle() {
-		return {
-			position: 'relative'
-		};
-	}
-
 	getWindowHeight() {
 		if (!this.canUseDOM) {
 			return 0;
@@ -267,11 +257,13 @@ Parallax.propTypes = {
 	bgWidth: React.PropTypes.string,
 	bgHeight: React.PropTypes.string,
 	strength: React.PropTypes.number,
+	childStyle: React.PropTypes.object,
 	blur: React.PropTypes.number
 };
 Parallax.defaultProps = {
 	strength: 100,
 	blur: 0,
 	log: false,
+	childStyle: {position: 'relative'},
 	disabled: false
 };
